@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    internal class Project
+    public class Project
     {
         [Key]
         public int ProjectId { get; set; }
