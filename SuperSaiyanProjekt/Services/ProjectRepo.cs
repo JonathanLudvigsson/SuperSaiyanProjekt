@@ -35,6 +35,15 @@ namespace SuperSaiyanProjekt.Services
             return projects;
         }
 
+        public async Task<IEnumerable<Employee>> GetEmployeesForProject(int projectId)
+        {
+            var employees = await _dbContext.Set<ProjectEmployee>()
+                .Where(pe => pe.ProjectId == projectId)
+                .Select(pe => pe.Employee)
+                .ToListAsync();
+            return employees;
+        }
+
         public async Task<Project> Remove(int id)
         {
             var project = await _dbContext.Set<Project>().FirstOrDefaultAsync(p => p.ProjectId == id);
