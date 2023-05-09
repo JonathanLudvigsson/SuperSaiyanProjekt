@@ -19,7 +19,7 @@ namespace SuperSaiyanProjekt
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IRepository<Employee>, EmployeeRepo>();
             builder.Services.AddScoped<IRepository<Project>, ProjectRepo>();
-            builder.Services.AddScoped<IRepository<TimeReport>, TimeReportRepo>();
+            builder.Services.AddScoped<ITimeReport, TimeReportRepo>();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 

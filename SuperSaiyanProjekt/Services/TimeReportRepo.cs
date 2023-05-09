@@ -4,7 +4,7 @@ using SuperSaiyanProjekt.Data;
 
 namespace SuperSaiyanProjekt.Services
 {
-    public class TimeReportRepo : IRepository<TimeReport>
+    public class TimeReportRepo : ITimeReport
     {
         private readonly AppDbContext _dbContext;
 
@@ -57,6 +57,13 @@ namespace SuperSaiyanProjekt.Services
                 TimeReport.Project = exampleTimeReport.Project;
             }
             return TimeReport;
+        }
+
+        public async Task<TimeReport> GetHoursInWeek(int employeeid, int week)
+        {
+            TimeReport emp = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(e => e.Employee.EmployeeId == employeeid && e.WeekNumber == week);
+            return emp;
+
         }
     }
 }
