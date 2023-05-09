@@ -11,7 +11,7 @@ namespace Models
         public string Phone { get; set; }
         public int Age { get; set; }
         public DateTime HireDate { get; set; }
-        public ICollection<Project> Projects { get; set; }
-        public ICollection<TimeReport> TimeReps { get; set; }
+        public ICollection<Project>? Projects { get; set; }
+        public ICollection<TimeReport>? TimeReps { get; set; }
     }
 }
