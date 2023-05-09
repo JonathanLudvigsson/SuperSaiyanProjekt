@@ -40,6 +40,9 @@ namespace SuperSaiyanProjekt
             app.MapControllers();
 
             app.Run();
+
+
+            Console.WriteLine( "dmfgkdngjndjfgndf");
         }
     }
 }
