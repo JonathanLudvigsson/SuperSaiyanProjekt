@@ -17,5 +17,6 @@ namespace Models
         public DateTime EndDate { get; set; }
 
         public ICollection<TimeReport>? TimeReports { get; set; }
+        public ICollection<Employee>? Employees { get; set; }
     }
 }
