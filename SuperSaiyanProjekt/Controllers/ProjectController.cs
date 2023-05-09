@@ -4,8 +4,8 @@ using SuperSaiyanProjekt.Services;
 
 namespace SuperSaiyanProjekt.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("api/[controller")]
     public class ProjectController : Controller
     {
         private IRepository<Project> _api;
@@ -20,7 +20,7 @@ namespace SuperSaiyanProjekt.Controllers
             return Ok(await _api.GetAll());
         }
 
-        [HttpGet]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetSingleProject(int id)
         {
             return Ok(await _api.Get(id));
