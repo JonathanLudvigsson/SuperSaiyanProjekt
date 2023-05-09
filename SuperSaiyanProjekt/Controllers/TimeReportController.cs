@@ -8,8 +8,8 @@ namespace SuperSaiyanProjekt.Controllers
     [ApiController]
     public class TimeReportController : ControllerBase
     {
-        private IRepository<TimeReport> _api;
-        public TimeReportController(IRepository<TimeReport> api)
+        private ITimeReport _api;
+        public TimeReportController(ITimeReport api)
         {
             _api = api;
         }
@@ -50,6 +50,12 @@ namespace SuperSaiyanProjekt.Controllers
         public async Task<IActionResult> DeleteTimeReport(int id)
         {
             return Ok(await _api.Remove(id));
+        }
+        [HttpGet("{employeeid:int}/{week:int}")]
+        public async Task<IActionResult> GetHoursInWeek(int employeeid, int week)
+        {
+
+            return Ok(await _api.GetHoursInWeek(employeeid, week));
         }
     }
 }

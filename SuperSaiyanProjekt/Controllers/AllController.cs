@@ -9,7 +9,7 @@ namespace SuperSaiyanProjekt.Controllers
     public class AllController : Controller
     {
         private readonly IRepository<Employee> _employee;
-        private readonly IRepository<TimeReport> _timereport;
+        private readonly ITimeReport _timereport;
 
         [HttpGet("{id}/timereport")]
         public async Task<IActionResult> GetEmployee(int id)
