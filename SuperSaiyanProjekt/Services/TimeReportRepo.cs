@@ -65,5 +65,9 @@ namespace SuperSaiyanProjekt.Services
             return emp;
 
         }
+        public async Task<IEnumerable<TimeReport>> GetAllEmployeeTimeReports(int employeeid)
+        {
+            return null;
+        }
     }
 }
