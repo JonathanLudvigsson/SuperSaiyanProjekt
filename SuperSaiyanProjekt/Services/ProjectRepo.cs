@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperSaiyanProjekt.Services
 {
-    public class ProjectRepo : IRepository<Models.Project>
+    public class ProjectRepo : IProject
     {
         private readonly AppDbContext _dbContext;
 
@@ -33,6 +33,16 @@ namespace SuperSaiyanProjekt.Services
         {
             var projects = await _dbContext.Set<Project>().ToListAsync();
             return projects;
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeesForProject(int projectId)
+        {
+            var employees = await _dbContext.Set<Project>()
+                .Include(pe => pe.Employees)
+                .Where(pe => pe.ProjectId == projectId)
+                .SelectMany(pe => pe.Employees)
+                .ToListAsync();
+            return employees;
         }
 
         public async Task<Project> Remove(int id)
