@@ -8,8 +8,8 @@ namespace SuperSaiyanProjekt.Controllers
     [ApiController]
     public class ProjectController : Controller
     {
-        private IRepository<Project> _api;
-        public ProjectController(IRepository<Project> api)
+        private IProject _api;
+        public ProjectController(IProject api)
         {
             _api = api;
         }
@@ -36,7 +36,12 @@ namespace SuperSaiyanProjekt.Controllers
             return StatusCode(StatusCodes.Status406NotAcceptable);
         }
 
-
+        [HttpGet("{id}/employees")]
+        public async Task<IActionResult> GetEmployeesForProject(int id)
+        {
+            var employees = await _api.GetEmployeesForProject(id);
+            return Ok(employees);
+        }
 
 
         [HttpPut]
