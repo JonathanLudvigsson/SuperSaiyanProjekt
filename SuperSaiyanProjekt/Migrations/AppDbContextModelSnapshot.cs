@@ -100,6 +100,21 @@ namespace SuperSaiyanProjekt.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Models.EmployeeProject", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeId", "ProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("EmployeeProject");
+                });
+
             modelBuilder.Entity("Models.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -107,9 +122,6 @@ namespace SuperSaiyanProjekt.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -126,8 +138,6 @@ namespace SuperSaiyanProjekt.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ProjectId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("projects");
 
@@ -229,11 +239,23 @@ namespace SuperSaiyanProjekt.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Models.Project", b =>
+            modelBuilder.Entity("Models.EmployeeProject", b =>
                 {
-                    b.HasOne("Models.Employee", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("EmployeeId");
+                    b.HasOne("Models.Employee", "Employee")
+                        .WithMany("EmployeeProjects")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Project", "Project")
+                        .WithMany("EmployeeProjects")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("Models.TimeReport", b =>
@@ -257,13 +279,15 @@ namespace SuperSaiyanProjekt.Migrations
 
             modelBuilder.Entity("Models.Employee", b =>
                 {
-                    b.Navigation("Projects");
+                    b.Navigation("EmployeeProjects");
 
                     b.Navigation("TimeReps");
                 });
 
             modelBuilder.Entity("Models.Project", b =>
                 {
+                    b.Navigation("EmployeeProjects");
+
                     b.Navigation("TimeReports");
                 });
 #pragma warning restore 612, 618

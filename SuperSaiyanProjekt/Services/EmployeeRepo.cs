@@ -54,7 +54,7 @@ namespace SuperSaiyanProjekt.Services
                 Employee.Phone = exampleEmployee.Phone;
                 Employee.Age = exampleEmployee.Age;
                 Employee.HireDate = exampleEmployee.HireDate;
-                Employee.Projects = exampleEmployee.Projects;
+                Employee.EmployeeProjects = exampleEmployee.EmployeeProjects;
                 Employee.TimeReps = exampleEmployee.TimeReps;
             }
             return Employee;

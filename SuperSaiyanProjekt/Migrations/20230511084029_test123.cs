@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SuperSaiyanProjekt.Migrations
 {
     /// <inheritdoc />
-    public partial class creation1 : Migration
+    public partial class test123 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,17 +39,35 @@ namespace SuperSaiyanProjekt.Migrations
                     ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProjectDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: true)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_projects", x => x.ProjectId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeProject",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeProject", x => new { x.EmployeeId, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_projects_employees_EmployeeId",
+                        name: "FK_EmployeeProject_employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "employees",
-                        principalColumn: "EmployeeId");
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeProject_projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "projects",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,11 +112,11 @@ namespace SuperSaiyanProjekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "projects",
-                columns: new[] { "ProjectId", "EmployeeId", "EndDate", "ProjectDescription", "ProjectName", "StartDate" },
+                columns: new[] { "ProjectId", "EndDate", "ProjectDescription", "ProjectName", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Description of Project A", "Project A", new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, null, new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Description of Project B", "Project B", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Description of Project A", "Project A", new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "Description of Project B", "Project B", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -115,9 +133,9 @@ namespace SuperSaiyanProjekt.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_projects_EmployeeId",
-                table: "projects",
-                column: "EmployeeId");
+                name: "IX_EmployeeProject_ProjectId",
+                table: "EmployeeProject",
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_timereports_EmployeeId",
@@ -134,13 +152,16 @@ namespace SuperSaiyanProjekt.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "EmployeeProject");
+
+            migrationBuilder.DropTable(
                 name: "timereports");
 
             migrationBuilder.DropTable(
-                name: "projects");
+                name: "employees");
 
             migrationBuilder.DropTable(
-                name: "employees");
+                name: "projects");
         }
     }
 }

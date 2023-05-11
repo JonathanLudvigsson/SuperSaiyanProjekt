@@ -37,13 +37,13 @@ namespace SuperSaiyanProjekt.Services
 
         public async Task<IEnumerable<Employee>> GetEmployeesForProject(int projectId)
         {
-            var employees = await _dbContext.Set<Project>()
-                .Include(pe => pe.Employees)
-                .Where(pe => pe.ProjectId == projectId)
-                .SelectMany(pe => pe.Employees)
+            var employees = await _dbContext.Set<EmployeeProject>()
+                .Where(ep => ep.ProjectId == projectId)
+                .Select(ep => ep.Employee)
                 .ToListAsync();
             return employees;
         }
+
 
         public async Task<Project> Remove(int id)
         {
