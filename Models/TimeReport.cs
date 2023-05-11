@@ -16,7 +16,7 @@ namespace Models
         public int WeekNumber { get; set; }
         public int HoursWorked { get; set; }
 
-        public Employee? Employee { get; set; }
-        public Project? Project { get; set; }
+        public virtual Employee? Employee { get; set; }
+        public virtual Project? Project { get; set; }
     }
 }

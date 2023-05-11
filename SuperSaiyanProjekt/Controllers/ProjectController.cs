@@ -61,5 +61,11 @@ namespace SuperSaiyanProjekt.Controllers
             return Ok(await _api.Remove(id));
         }
 
+        [HttpPut("{projectid:int}, {employeeid:int}")]
+        public async Task<IActionResult> AddEmployeeToProject(int projectid, int employeeid)
+        {
+            return Ok(await _api.AddEmployeeToProject(projectid, employeeid));
+        }
+
     }
 }

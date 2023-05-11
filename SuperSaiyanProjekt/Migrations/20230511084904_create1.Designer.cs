@@ -12,8 +12,8 @@ using SuperSaiyanProjekt.Data;
 namespace SuperSaiyanProjekt.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230509082655_creation1")]
-    partial class creation1
+    [Migration("20230511084904_create1")]
+    partial class create1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace SuperSaiyanProjekt.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EmployeeProject", b =>
+                {
+                    b.Property<int>("EmployeesEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectsProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeesEmployeeId", "ProjectsProjectId");
+
+                    b.HasIndex("ProjectsProjectId");
+
+                    b.ToTable("EmployeeProject");
+                });
 
             modelBuilder.Entity("Models.Employee", b =>
                 {
@@ -111,9 +126,6 @@ namespace SuperSaiyanProjekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -129,8 +141,6 @@ namespace SuperSaiyanProjekt.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ProjectId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("projects");
 
@@ -232,11 +242,19 @@ namespace SuperSaiyanProjekt.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Models.Project", b =>
+            modelBuilder.Entity("EmployeeProject", b =>
                 {
                     b.HasOne("Models.Employee", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("EmployeeId");
+                        .WithMany()
+                        .HasForeignKey("EmployeesEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.TimeReport", b =>
@@ -260,8 +278,6 @@ namespace SuperSaiyanProjekt.Migrations
 
             modelBuilder.Entity("Models.Employee", b =>
                 {
-                    b.Navigation("Projects");
-
                     b.Navigation("TimeReps");
                 });
 
