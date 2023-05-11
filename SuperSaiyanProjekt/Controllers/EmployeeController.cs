@@ -51,5 +51,6 @@ namespace SuperSaiyanProjekt.Controllers
         {
             return Ok(await _api.Remove(id));
         }
+
     }
 }

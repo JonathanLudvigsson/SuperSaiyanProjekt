@@ -69,5 +69,24 @@ namespace SuperSaiyanProjekt.Services
             }
             return project;
         }
+        
+        public async Task<Employee> AddEmployeeToProject(int projectid, int empid)
+        {
+            var project = await _dbContext.projects.FirstOrDefaultAsync(x => x.ProjectId == projectid);
+            var employee = await _dbContext.employees.FirstOrDefaultAsync(x => x.EmployeeId == empid);
+
+            if (project.Employees == null)
+            {
+                project.Employees = new List<Employee>();
+                await _dbContext.SaveChangesAsync();
+            }
+
+            if (project != null && employee != null)
+            {
+                project.Employees.Add(employee);
+                await _dbContext.SaveChangesAsync();
+            }
+            return employee;
+        }
     }
 }

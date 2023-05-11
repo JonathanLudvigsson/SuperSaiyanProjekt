@@ -16,7 +16,7 @@ namespace Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public ICollection<TimeReport>? TimeReports { get; set; }
-        public ICollection<Employee>? Employees { get; set; }
+        public virtual ICollection<TimeReport>? TimeReports { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; } = new List<Employee>();
     }
 }
