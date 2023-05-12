@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Models
 {
@@ -16,7 +12,9 @@ namespace Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public virtual ICollection<TimeReport>? TimeReports { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<TimeReport>? TimeReports { get; set; } = new List<TimeReport>();
+        [JsonIgnore]
         public virtual ICollection<Employee>? Employees { get; set; } = new List<Employee>();
     }
 }

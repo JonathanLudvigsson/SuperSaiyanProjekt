@@ -59,15 +59,18 @@ namespace SuperSaiyanProjekt.Services
             return TimeReport;
         }
 
-        public async Task<TimeReport> GetHoursInWeek(int employeeid, int week)
+        public async Task<dynamic> GetHoursInWeek(int employeeid, int week)
         {
-            TimeReport emp = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(e => e.Employee.EmployeeId == employeeid && e.WeekNumber == week);
+            var emp = await _dbContext.Set<TimeReport>()
+                .Where(x => x.EmployeeId == employeeid && x.WeekNumber == week)
+                .Select(x => new {x.EmployeeId, x.Employee.FirstName, x.Employee.LastName, x.HoursWorked, x.WeekNumber})
+                .FirstOrDefaultAsync();
             return emp;
-
         }
         public async Task<IEnumerable<TimeReport>> GetAllEmployeeTimeReports(int employeeid)
         {
-            return null;
+            List<TimeReport> employee = await _dbContext.timereports.Where(x => x.EmployeeId == employeeid).ToListAsync();
+            return employee;
         }
     }
 }

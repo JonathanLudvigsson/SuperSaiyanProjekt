@@ -51,11 +51,18 @@ namespace SuperSaiyanProjekt.Controllers
         {
             return Ok(await _api.Remove(id));
         }
+
         [HttpGet("{employeeid:int}/{week:int}")]
         public async Task<IActionResult> GetHoursInWeek(int employeeid, int week)
         {
 
             return Ok(await _api.GetHoursInWeek(employeeid, week));
+        }
+
+        [HttpGet("{employeeid:int}/employeetimereports")]
+        public async Task<IActionResult> GetEmployeeTimeReports(int employeeid)
+        {
+            return Ok(await _api.GetAllEmployeeTimeReports(employeeid));
         }
     }
 }
