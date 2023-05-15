@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Models
 {
@@ -11,7 +12,10 @@ namespace Models
         public string Phone { get; set; }
         public int Age { get; set; }
         public DateTime HireDate { get; set; }
-        public virtual ICollection<Project>? Projects { get; set; }
-        public virtual ICollection<TimeReport>? TimeReps { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Project>? Projects { get; set; } = new List<Project>();
+        [JsonIgnore]
+        public virtual ICollection<TimeReport>? TimeReps { get; set; } = new List<TimeReport>();
     }
 }

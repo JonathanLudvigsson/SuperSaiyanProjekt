@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Models
 {
@@ -16,7 +12,9 @@ namespace Models
         public int WeekNumber { get; set; }
         public int HoursWorked { get; set; }
 
+        [JsonIgnore]
         public virtual Employee? Employee { get; set; }
+        [JsonIgnore]
         public virtual Project? Project { get; set; }
     }
 }
