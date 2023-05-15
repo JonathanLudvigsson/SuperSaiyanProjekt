@@ -56,6 +56,7 @@ namespace SuperSaiyanProjekt.Services
                 Employee.HireDate = exampleEmployee.HireDate;
                 Employee.Projects = exampleEmployee.Projects;
                 Employee.TimeReps = exampleEmployee.TimeReps;
+                await _dbContext.SaveChangesAsync();
             }
             return Employee;
         }

@@ -39,12 +39,12 @@ namespace SuperSaiyanProjekt.Data
 
             modelBuilder.Entity<Project>().HasData(proj2);
 
-            TimeReport timeRep1 = new TimeReport { RepoId = 1, EmployeeId = 1, ProjectId = 1, WeekNumber = 1, HoursWorked = 40 };
-            TimeReport timeRep2 = new TimeReport { RepoId = 2, EmployeeId = 1, ProjectId = 2, WeekNumber = 2, HoursWorked = 35 };
-            TimeReport timeRep3 = new TimeReport { RepoId = 3, EmployeeId = 2, ProjectId = 1, WeekNumber = 1, HoursWorked = 30 };
-            TimeReport timeRep4 = new TimeReport { RepoId = 4, EmployeeId = 3, ProjectId = 2, WeekNumber = 2, HoursWorked = 20 };
-            TimeReport timeRep5 = new TimeReport { RepoId = 5, EmployeeId = 4, ProjectId = 1, WeekNumber = 3, HoursWorked = 45 };
-            TimeReport timeRep6 = new TimeReport { RepoId = 6, EmployeeId = 5, ProjectId = 2, WeekNumber = 4, HoursWorked = 25 };
+            TimeReport timeRep1 = new TimeReport { TimeReportId = 1, EmployeeId = 1, ProjectId = 1, WeekNumber = 1, HoursWorked = 40 };
+            TimeReport timeRep2 = new TimeReport { TimeReportId = 2, EmployeeId = 1, ProjectId = 2, WeekNumber = 2, HoursWorked = 35 };
+            TimeReport timeRep3 = new TimeReport { TimeReportId = 3, EmployeeId = 2, ProjectId = 1, WeekNumber = 1, HoursWorked = 30 };
+            TimeReport timeRep4 = new TimeReport { TimeReportId = 4, EmployeeId = 3, ProjectId = 2, WeekNumber = 2, HoursWorked = 20 };
+            TimeReport timeRep5 = new TimeReport { TimeReportId = 5, EmployeeId = 4, ProjectId = 1, WeekNumber = 3, HoursWorked = 45 };
+            TimeReport timeRep6 = new TimeReport { TimeReportId = 6, EmployeeId = 5, ProjectId = 2, WeekNumber = 4, HoursWorked = 25 };
 
 
             modelBuilder.Entity<TimeReport>().HasData(timeRep1);

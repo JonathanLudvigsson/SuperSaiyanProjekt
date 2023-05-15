@@ -22,7 +22,7 @@ namespace SuperSaiyanProjekt.Services
 
         public async Task<TimeReport> Get(int id)
         {
-            var TimeReport = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(p => p.RepoId == id);
+            var TimeReport = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(p => p.TimeReportId == id);
             return TimeReport;
         }
 
@@ -34,7 +34,7 @@ namespace SuperSaiyanProjekt.Services
 
         public async Task<TimeReport> Remove(int id)
         {
-            var TimeReport = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(p => p.RepoId == id);
+            var TimeReport = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(p => p.TimeReportId == id);
             if (TimeReport != null)
             {
                 _dbContext.Set<TimeReport>().Remove(TimeReport);
@@ -45,16 +45,14 @@ namespace SuperSaiyanProjekt.Services
 
         public async Task<TimeReport> Update(int id, TimeReport exampleTimeReport)
         {
-            var TimeReport = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(p => p.RepoId == id);
+            var TimeReport = await _dbContext.Set<TimeReport>().FirstOrDefaultAsync(p => p.TimeReportId == id);
             if (TimeReport != null)
             {
-                TimeReport.RepoId = exampleTimeReport.RepoId;
                 TimeReport.EmployeeId = exampleTimeReport.EmployeeId;
                 TimeReport.ProjectId = exampleTimeReport.ProjectId;
                 TimeReport.WeekNumber = exampleTimeReport.WeekNumber;
                 TimeReport.HoursWorked = exampleTimeReport.HoursWorked;
-                TimeReport.Employee = exampleTimeReport.Employee;
-                TimeReport.Project = exampleTimeReport.Project;
+                await _dbContext.SaveChangesAsync();
             }
             return TimeReport;
         }
