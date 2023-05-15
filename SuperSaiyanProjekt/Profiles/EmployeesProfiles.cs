@@ -8,8 +8,7 @@ namespace SuperSaiyanProjekt.Profiles
     {
         public EmployeesProfiles()
         {
-            CreateMap<Task<Employee>, Task<EmployeeDto>>();
-            CreateMap<List<Employee>, IEnumerable<EmployeeDto>>();
+            CreateMap<Employee, EmployeeDto>();
         }
     }
 }

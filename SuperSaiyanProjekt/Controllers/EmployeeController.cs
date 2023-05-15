@@ -23,7 +23,7 @@ namespace SuperSaiyanProjekt.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult <IEnumerable<EmployeeDto>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var Employees = await _api.GetAll();
 
@@ -31,12 +31,12 @@ namespace SuperSaiyanProjekt.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult <EmployeeDto>> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var Employees = _api.Get(id);
-            if (Employees != null)
+            var Employee = await _api.Get(id);
+            if (Employee != null)
             {
-                return Ok(_mapper.Map<EmployeeDto>(Employees));
+                return Ok(_mapper.Map<EmployeeDto>(Employee));
             }
             return NotFound();
         }
