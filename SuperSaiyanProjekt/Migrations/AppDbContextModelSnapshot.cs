@@ -34,7 +34,7 @@ namespace SuperSaiyanProjekt.Migrations
 
                     b.HasIndex("ProjectsProjectId");
 
-                    b.ToTable("EmployeeProject");
+                    b.ToTable("EmployeeProject", (string)null);
                 });
 
             modelBuilder.Entity("Models.Employee", b =>
@@ -65,7 +65,7 @@ namespace SuperSaiyanProjekt.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("employees");
+                    b.ToTable("employees", (string)null);
 
                     b.HasData(
                         new
@@ -139,7 +139,7 @@ namespace SuperSaiyanProjekt.Migrations
 
                     b.HasKey("ProjectId");
 
-                    b.ToTable("projects");
+                    b.ToTable("projects", (string)null);
 
                     b.HasData(
                         new
@@ -186,7 +186,7 @@ namespace SuperSaiyanProjekt.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("timereports");
+                    b.ToTable("timereports", (string)null);
 
                     b.HasData(
                         new

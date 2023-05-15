@@ -1,4 +1,6 @@
-﻿namespace SuperSaiyanProjekt.Services
+﻿using SuperSaiyanProjekt.Dtos;
+
+namespace SuperSaiyanProjekt.Services
 {
     public interface IRepository<T>
     {

@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Models;
+using SuperSaiyanProjekt.Dtos;
 using SuperSaiyanProjekt.Services;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace SuperSaiyanProjekt.Controllers
 {
@@ -9,45 +13,54 @@ namespace SuperSaiyanProjekt.Controllers
     public class EmployeeController : ControllerBase
     {
         private IRepository<Employee> _api;
-        public EmployeeController(IRepository<Employee> api)
+        private IMapper _mapper;
+
+        public EmployeeController(IRepository<Employee> api, IMapper mapper)
         {
             _api = api;
+            _mapper = mapper;
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<ActionResult <IEnumerable<EmployeeDto>>> GetAll()
         {
-            return Ok(await _api.GetAll());
+            var Employees = await _api.GetAll();
+
+            return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(Employees));
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetEmployee(int id)
+        public async Task<ActionResult <EmployeeDto>> Get(int id)
         {
-            return Ok(await _api.Get(id));
+            var Employees = _api.Get(id);
+            if (Employees != null)
+            {
+                return Ok(_mapper.Map<EmployeeDto>(Employees));
+            }
+            return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEmployee(Employee empToAdd)
+        public async Task<IActionResult> Add(EmployeeDto empToAdd)
         {
-            if (empToAdd != null)
-            {
-                return Ok(await _api.Add(empToAdd));
-            }
-            return StatusCode(StatusCodes.Status406NotAcceptable);
+            var EmployeeModel = _mapper.Map<Employee>(empToAdd);
+            _api.Add(EmployeeModel);
+
+            return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateEmployee(int id, Employee updatedEmp)
+        public async Task<IActionResult> Update(int id, EmployeeDto updatedEmp)
         {
-            if (updatedEmp != null)
-            {
-                return Ok(await _api.Update(id, updatedEmp));
-            }
-            return StatusCode(StatusCodes.Status406NotAcceptable);
+            var EmployeeModel = _mapper.Map<Employee>(updatedEmp);
+            await _api.Update(id, EmployeeModel);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        public async Task<IActionResult> Remove(int id)
         {
             return Ok(await _api.Remove(id));
         }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using SuperSaiyanProjekt.Data;
@@ -17,11 +18,13 @@ namespace SuperSaiyanProjekt
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             builder.Services.AddScoped<IRepository<Employee>, EmployeeRepo>();
             builder.Services.AddScoped<IProject, ProjectRepo>();
             builder.Services.AddScoped<ITimeReport, TimeReportRepo>();
-
-            
+            builder.Services.AddScoped<Mapper>();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
