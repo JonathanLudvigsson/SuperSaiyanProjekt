@@ -5,8 +5,6 @@ namespace SuperSaiyanProjekt.Dtos
 {
     public class EmployeeDto
     {
-        [Key]
-        public int EmployeeId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
