@@ -44,7 +44,7 @@ namespace SuperSaiyanProjekt.Controllers
         public async Task<IActionResult> Add(EmployeeDto empToAdd)
         {
             var EmployeeModel = _mapper.Map<Employee>(empToAdd);
-            _api.Add(EmployeeModel);
+            await _api.Add(EmployeeModel);
 
             return Ok();
         }
