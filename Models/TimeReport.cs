@@ -6,7 +6,7 @@ namespace Models
     public class TimeReport
     {
         [Key]
-        public int TimeReportId { get; set; }
+        public int RepoId { get; set; }
         public int EmployeeId { get; set; }
         public int ProjectId { get; set; }
         public int WeekNumber { get; set; }
