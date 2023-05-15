@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Models;
+using SuperSaiyanProjekt.Dtos;
 using SuperSaiyanProjekt.Services;
 
 namespace SuperSaiyanProjekt.Controllers
@@ -9,39 +11,46 @@ namespace SuperSaiyanProjekt.Controllers
     public class TimeReportController : ControllerBase
     {
         private ITimeReport _api;
-        public TimeReportController(ITimeReport api)
+        private IMapper _mapper;
+
+        public TimeReportController(ITimeReport api, IMapper mapper)
         {
             _api = api;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllTimeReports()
         {
-            return Ok(await _api.GetAll());
+            var timeReports = await _api.GetAll();
+            return Ok(_mapper.Map<IEnumerable<TimeReportDto>>(timeReports));
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTimeReport(int id)
         {
-            return Ok(await _api.Get(id));
+            TimeReport timeRep = await _api.Get(id);
+            return Ok(_mapper.Map<TimeReportDto>(timeRep));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTimeReport(TimeReport empToAdd)
+        public async Task<IActionResult> AddTimeReport(TimeReportDto timeReportToAdd)
         {
-            if (empToAdd != null)
+            TimeReport timeRep = _mapper.Map<TimeReport>(timeReportToAdd);
+            if (timeReportToAdd != null)
             {
-                return Ok(await _api.Add(empToAdd));
+                return Ok(await _api.Add(timeRep));
             }
             return StatusCode(StatusCodes.Status406NotAcceptable);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateTimeReport(int id, TimeReport updatedEmp)
+        public async Task<IActionResult> UpdateTimeReport(int id, TimeReportDto updatedTimeReport)
         {
-            if (updatedEmp != null)
+            TimeReport timeRep = _mapper.Map<TimeReport>(updatedTimeReport);
+            if (updatedTimeReport != null)
             {
-                return Ok(await _api.Update(id, updatedEmp));
+                return Ok(await _api.Update(id, timeRep));
             }
             return StatusCode(StatusCodes.Status406NotAcceptable);
         }
