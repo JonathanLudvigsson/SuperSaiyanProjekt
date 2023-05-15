@@ -8,7 +8,7 @@ namespace SuperSaiyanProjekt.Profiles
     {
         public TimereportProfiles()
         {
-            CreateMap<TimeReport, TimereportDto>();
+            CreateMap<TimeReport, TimeReportDto>().ReverseMap();
         }
     }
 }

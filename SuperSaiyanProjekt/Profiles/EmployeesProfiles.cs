@@ -8,7 +8,7 @@ namespace SuperSaiyanProjekt.Profiles
     {
         public EmployeesProfiles()
         {
-            CreateMap<Employee, EmployeeDto>();
+            CreateMap<Employee, EmployeeDto>().ReverseMap();
         }
     }
 }

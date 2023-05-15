@@ -2,7 +2,7 @@
 
 namespace SuperSaiyanProjekt.Dtos
 {
-    public class TimereportDto
+    public class TimeReportDto
     {
         [Required]
         public int EmployeeId { get; set; }

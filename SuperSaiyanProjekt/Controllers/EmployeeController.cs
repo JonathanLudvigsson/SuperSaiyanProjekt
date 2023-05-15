@@ -19,7 +19,6 @@ namespace SuperSaiyanProjekt.Controllers
         {
             _api = api;
             _mapper = mapper;
-
         }
 
         [HttpGet]
