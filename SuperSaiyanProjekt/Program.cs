@@ -24,7 +24,6 @@ namespace SuperSaiyanProjekt
             builder.Services.AddScoped<IRepository<Employee>, EmployeeRepo>();
             builder.Services.AddScoped<IProject, ProjectRepo>();
             builder.Services.AddScoped<ITimeReport, TimeReportRepo>();
-            builder.Services.AddScoped<Mapper>();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
